@@ -33,7 +33,7 @@ spec:
           sh 'npm install -g bower'
           sh 'npm install -g gulp'
           sh 'mvn install'
-          sh 'mvn clean package -pl api docker:build'
+          sh 'mvn clean package -DskipTests -pl api docker:build'
           sh 'echo aqui deberia hacer el push de la imagen de docker'
         }
       }
