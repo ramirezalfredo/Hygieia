@@ -12,12 +12,7 @@ metadata:
 spec:
   containers:
   - name: maven
-    image: maven:alpine
-    command:
-    - cat
-    tty: true
-  - name: node
-    image: node:alpine
+    image: maven:3.5.3-jdk-8
     command:
     - cat
     tty: true
@@ -28,10 +23,12 @@ spec:
     stage('Build API') {
       steps {
         container('maven') {
-          sh 'apk update'
+          sh 'apt-get update'
+          /*
           sh 'apk add nodejs'
           sh 'npm install -g bower'
           sh 'npm install -g gulp'
+          */
           sh 'mvn install'
           sh 'mvn clean package -DskipTests -pl api docker:build'
           sh 'echo aqui deberia hacer el push de la imagen de docker'
