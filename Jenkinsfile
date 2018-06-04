@@ -28,6 +28,7 @@ spec:
     stage('Build API') {
       steps {
         container('maven') {
+          sh 'apk update'
           sh 'apk add nodejs'
           sh 'npm install -g bower'
           sh 'npm install -g gulp'
