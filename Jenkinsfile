@@ -25,15 +25,11 @@ spec:
     }
   }
   stages {
-    stage('Run maven') {
+    stage('Build API') {
       steps {
-        container('node') {
-          sh 'npm install -g npm'
-          sh 'npm install -g bower'
-          sh 'npm install -g gulp'
-        }
         container('maven') {
-          sh 'mvn clean install package'
+          sh 'mvn clean package -pl api docker:build'
+          sh 'echo aqui deberia hacer el push de la imagen de docker'
         }
       }
     }
