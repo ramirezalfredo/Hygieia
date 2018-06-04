@@ -27,11 +27,13 @@ spec:
   stages {
     stage('Run maven') {
       steps {
+        container('busybox') {
+          sh 'npm install -g npm'
+          sh 'npm install -g bower'
+          sh 'npm install -g gulp'
+        }
         container('maven') {
           sh 'mvn clean install package'
-        }
-        container('busybox') {
-          sh 'node --version'
         }
       }
     }
