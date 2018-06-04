@@ -1,0 +1,31 @@
+---
+# MongoDB Configuration
+
+- name: MongoDB | Install MongoDB repo
+  yum_repository: 
+    name: mongodb-org-3.6
+    description: MongoDB Repository
+    baseurl: https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.6/x86_64/
+    gpgcheck: 1
+    enabled: 1
+    gpgkey: https://www.mongodb.org/static/pgp/server-3.6.asc
+
+- name: MongoDB | Install MongoDB packages
+  package: 
+    name: mongodb-org
+    state: present
+
+- name: MongoDB | Listen on private IP
+  replace:
+    path: "{{ MONGOD_CONF }}"
+    regexp: '^  bindIp: 127.0.0.1'
+    replace: '#  bindIp: 127.0.0.1'
+    backup: yes
+  #notify:
+  #  - restart mongod
+
+- name: MongoDB | Start MongoDB
+  service: 
+    name: mongod
+    state: restarted
+    enabled: yes

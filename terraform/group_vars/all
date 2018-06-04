@@ -1,0 +1,26 @@
+---
+# General
+ansible_user: ec2-user
+
+# MongoDB
+MONGOD_CONF: /etc/mongod.conf
+
+# Kubernetes 
+k8s_token: 086db1.099a4e210cc66ce9
+
+# Network implementation('flannel', 'calico')
+network: flannel
+pod_network_cidr: "10.244.0.0/16"
+cni_opts: "interface=eth1" # flannel: --iface=eth1, calico: interface=eth1
+
+enable_dashboard: yes
+
+# A list of insecure registrys you might need to define
+# insecure_registrys: ""
+# insecure_registrys: ['gcr.io']
+
+systemd_dir: /lib/systemd/system
+system_env_dir: /etc/sysconfig
+network_dir: /etc/kubernetes/network
+kubeadmin_config: /etc/kubernetes/admin.conf
+kube_addon_dir: /etc/kubernetes/addon

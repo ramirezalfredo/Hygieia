@@ -1,0 +1,74 @@
+---
+# Docker and k8s components for everyone!
+
+- name: Docker | Install CS Docker Engine repository
+  yum_repository:
+    name: dockerrepo
+    description: Docker Repository
+    baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    gpgcheck: 1
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: Kubernetes | Install Kubernetes repository
+  yum_repository: 
+    name: kubernetes
+    description: Kubernetes Repository
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    gpgcheck: 1
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+- selinux:
+    state: disabled
+
+- name: Docker | Install docker-engine
+  package:
+    name: docker-engine-17.03.0.ce-1.el7.centos.x86_64
+    state: present
+
+- name: restart docker
+  service: 
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Docker | Configure cgroup driver
+  template:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+  notify:
+    - restart docker
+
+- name: restart docker
+  service: 
+    name: docker
+    state: restarted
+    enabled: yes
+
+- name: k8s | Configure iptables
+  template:
+    src: k8s.conf
+    dest: /etc/sysctl.d/k8s.conf
+
+- name: k8s | Reload sysctl
+  command: sysctl --system
+
+- name: k8s | Add ec2-user to docker group
+  command: usermod -aG docker ec2-user
+
+- name: k8s | Install kubeadm
+  package:
+    name: kubeadm
+    state: present
+
+- name: k8s | Install kubelet
+  package:
+    name: kubelet
+    state: present
+  notify:
+    - restart kubelet
+
+- name: restart kubelet
+  service:
+    name: kubelet
+    state: started
+    enabled: yes

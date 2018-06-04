@@ -1,0 +1,43 @@
+---
+
+- name: K8s | Reset Kubernetes component
+  shell: "kubeadm reset"
+
+- name: K8s | Init Kubernetes cluster
+  shell: |
+    kubeadm init --pod-network-cidr {{ pod_network_cidr }} \
+                 --token {{ k8s_token }} \
+                 --apiserver-advertise-address {{ k8s_master_ip }}
+  register: init_cluster
+
+- name: K8s | Create Kubernetes config directory
+  become: false
+  file: path="~/.kube/" state=directory
+
+- name: k8s | Copy admin.conf
+  command: cp {{ kubeadmin_config }} /home/ec2-user/.kube/config
+
+- name: k8s | Copy admin.conf
+  command: chown ec2-user:ec2-user /home/ec2-user/.kube/config
+
+# - name: K8s | Copy admin.conf to Home directory
+#   #when: init_cluster and ansible_user is defined
+#   copy:
+#     src: "{{ kubeadmin_config }}"
+#     dest: "/home/ec2-user/.kube/config"
+#     owner: ec2-user
+#     group: ec2-user
+#     mode: 0644
+
+- name: K8s | Enable and restart kubelet engine
+  systemd:
+    name: kubelet
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+  notify:
+    - restart kubelet
+#  register: started_kubelet
+- name: K8s | Install Flannel SDN
+  become: false
+  shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml

@@ -1,0 +1,21 @@
+---
+# Jenkins Configuration
+
+- name: Jenkins | Install Jenkins repo
+  yum_repository: 
+    name: jenkins
+    description: Jenkins-Stable Repository
+    baseurl: http://pkg.jenkins.io/redhat-stable
+    gpgcheck: 1
+    gpgkey: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+- name: Jenkins | Install Jenkins
+  package: 
+    name: jenkins
+    state: present
+
+- name: Jenkins | Start Jenkins
+  service: 
+    name: jenkins 
+    state: restarted
+    enabled: yes

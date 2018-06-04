@@ -1,0 +1,40 @@
+---
+- name: jenkins
+  hosts: all
+  remote_user: ec2-user
+  gather_facts: False
+  roles:
+    - common
+    - jenkins
+  tags:
+    - jenkins
+
+- name: mongodb
+  hosts: all
+  remote_user: ec2-user
+  gather_facts: False
+  roles:
+    - common
+    - mongodb
+  tags:
+    - mongodb
+
+- name: k8s-master
+  hosts: all
+  remote_user: ec2-user
+  gather_facts: False
+  roles:
+    - common-k8s
+    - master-k8s
+  tags:
+    - k8s-master
+
+- name: k8s-worker
+  hosts: all
+  remote_user: ec2-user
+  gather_facts: False
+  roles:
+    - common-k8s
+    - worker-k8s
+  tags:
+    - k8s-worker
