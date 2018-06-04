@@ -27,7 +27,7 @@ spec:
   stages {
     stage('Run maven') {
       steps {
-        container('busybox') {
+        container('node') {
           sh 'npm install -g npm'
           sh 'npm install -g bower'
           sh 'npm install -g gulp'
