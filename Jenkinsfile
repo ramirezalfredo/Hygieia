@@ -24,11 +24,10 @@ spec:
       steps {
         container('maven') {
           sh 'apt-get update'
-          /*
-          sh 'apk add nodejs'
+          sh 'curl -sL https://deb.nodesource.com/setup_8.x | bash -'
+          sh 'apt-get install -y node'
           sh 'npm install -g bower'
           sh 'npm install -g gulp'
-          */
           sh 'mvn install'
           sh 'mvn clean package -DskipTests -pl api docker:build'
           sh 'echo aqui deberia hacer el push de la imagen de docker'
