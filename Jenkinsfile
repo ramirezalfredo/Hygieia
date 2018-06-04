@@ -29,7 +29,7 @@ spec:
       steps {
         container('maven') {
           sh 'mvn clean package -pl core'
-          sh 'mvn clean package -pl api docker:build'
+          /*sh 'mvn clean package -pl api docker:build'*/
           sh 'echo aqui deberia hacer el push de la imagen de docker'
         }
       }
