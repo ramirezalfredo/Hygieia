@@ -28,6 +28,9 @@ spec:
     stage('Build API') {
       steps {
         container('maven') {
+          sh 'apk add nodejs'
+          sh 'npm install -g bower'
+          sh 'npm install -g gulp'
           sh 'mvn install'
           sh 'mvn clean package -pl api docker:build'
           sh 'echo aqui deberia hacer el push de la imagen de docker'
