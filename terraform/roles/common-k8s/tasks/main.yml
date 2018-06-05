@@ -25,6 +25,9 @@
     name: docker-engine-17.03.0.ce-1.el7.centos.x86_64
     state: present
 
+- name: k8s | Add ec2-user to docker group
+  command: usermod -aG docker ec2-user
+
 - name: restart docker
   service: 
     name: docker
@@ -51,9 +54,6 @@
 
 - name: k8s | Reload sysctl
   command: sysctl --system
-
-- name: k8s | Add ec2-user to docker group
-  command: usermod -aG docker ec2-user
 
 - name: k8s | Install kubeadm
   package:

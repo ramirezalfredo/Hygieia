@@ -19,3 +19,17 @@
     name: jenkins 
     state: restarted
     enabled: yes
+
+- name: Docker | Install docker
+  package:
+    name: docker
+    state: present
+
+- name: k8s | Add ec2-user to docker group
+  command: usermod -aG docker ec2-user
+
+- name: restart docker
+  service: 
+    name: docker
+    state: started
+    enabled: yes
