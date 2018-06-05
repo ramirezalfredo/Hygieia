@@ -33,7 +33,7 @@ Final Jenkinsfile does a local build, Jenkinsfile-k8s is the original version th
 TODO:
 
 * Add a volume to the cluster for the workDir at the jnlp container, for caching the $HOME/.m2 directory, and caching for the subsecuent builds using this method.
-* push the resulting images in a registry.
+* push the resulting images in a registry, done...!
 * Win the challenge :)
 
 ```
@@ -67,3 +67,11 @@ nginx                                     latest              ae513a47849c      
 java                                      openjdk-8-jre       e44d62cf8862        16 months ago       311MB
 java                                      openjdk-8-jdk       d23bdf5b1b1b        16 months ago       643MB
 ```
+
+## Repos in AWS ECR
+
+![Screenshot #3](screenshots/screen3.png)
+
+Content of one of the repos:
+
+![Screenshot #3](screenshots/screen3.png)
