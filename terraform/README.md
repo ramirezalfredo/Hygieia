@@ -30,13 +30,13 @@ Final Jenkinsfile does a local build, Jenkinsfile-k8s is the original version th
 
 ![Screenshot #2](screenshots/screen2.png)
 
-TODO:
+##TODO:
 
-* Add a volume to the cluster for the workDir at the jnlp container, for caching the $HOME/.m2 directory, and caching for the subsecuent builds using this method.
-* push the resulting images in a registry, done...!
+* Add a volume to the cluster for the workDir at the jnlp container, for caching the $HOME/.m2 directory, and caching for the subsecuent builds while using this method.
+* Deploy container images in Kubenetes cluster, expose services, attach ELB.
 * Win the challenge :)
 
-```
+```bash
 REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
 hygieia-ui                                latest              5f209214e1d3        7 minutes ago       124MB
 hygieia-score-collector                   latest              5b03a82c5e75        7 minutes ago       701MB
@@ -75,3 +75,32 @@ java                                      openjdk-8-jdk       d23bdf5b1b1b      
 Content of one of the repos:
 
 ![Screenshot #3](screenshots/screen3.png)
+
+## Workarounds and fixes:
+
+Changed plugin configuration to 1.0 in one of the tests.
+
+pom.xml
+```xml
+    <plugin>
+    <groupId>com.github.eirslett</groupId>
+    <artifactId>frontend-maven-plugin</artifactId>
+    <!-- if you have issues with your proxy, be careful https://github.com/eirslett/frontend-maven-plugin/commit/bcd8a7883703e28e3c5346e1f34c64332994e442 -->
+    <!--<version>0.0.29</version>-->
+    <version>1.0</version>
+    <configuration>
+        <workingDirectory>./</workingDirectory>
+        <skip>${frontend-maven-plugin.skip}</skip>
+    </configuration>
+```
+
+Skipped Docker container for Rally:
+
+pom.xml
+```xml
+    <configuration>
+        <!--<skipDockerBuild>false</skipDockerBuild>-->
+        <skipDockerBuild>true</skipDockerBuild>
+        <imageName>hygieia-rally-feature-collector</imageName>
+        <dockerDirectory>${project.basedir}/docker</dockerDirectory>
+```
