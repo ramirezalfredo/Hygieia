@@ -94,7 +94,7 @@ pom.xml
     </configuration>
 ```
 
-Skipped Docker container for Rally:
+Skipped Docker container for Rally (one of the collectors):
 
 pom.xml
 ```xml
