@@ -4,7 +4,7 @@ Welcome to the GL DevOps Challence to implement Hygieia `https://github.com/capi
 
 In this folder you will find the terraform IaC files (challenge.tf and variables.tf) needed to build:
 
-* Jenkins t2.micro instance
+* Jenkins t2.micro instance -> t2.small (for doing local builds, k8s buils t2.micro is fine)
 * MongoDB t2.micro instance
 * Kubernetes Master t2.small instance
 * Kubernetes Worker x 2 t2.small instances
@@ -23,3 +23,11 @@ The Kubernetes Cluster generation is fully automated, with the exception of the 
 The Jenkins setup process is not automated, but it shows the initial wizard screen, and the Kubernetes Jenkins plugin should be installed and configured manually.
 
 The idea behind this, is to use the Kubernetes cluster for the builds. The pipeline  launches a Pod (buildpod-*) with the containers nedded to build the parts of the project.  A Jenkinsfile (declarative pipeline) is provided at the root of this repository `https://github.com/ramirezalfredo/Hygieia`.
+
+Final Jenkinsfile does a local build, Jenkinsfile-k8s is the original version that i have to left behind, but this is the configuration of the Kubernetes plugin for Jenkins:
+
+![Screenshot #1]
+(screenshots/screen1.png)
+
+![Screenshot #2]
+(screenshots/screen2.png)
