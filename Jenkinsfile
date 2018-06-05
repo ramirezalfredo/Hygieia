@@ -5,14 +5,14 @@ pipeline {
         //jdk 'jdk8'
     }
     stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                '''
-            }
-        }
+        // stage ('Initialize') {
+        //     steps {
+        //         sh '''
+        //             echo "PATH = ${PATH}"
+        //             echo "M2_HOME = ${M2_HOME}"
+        //         '''
+        //     }
+        // }
         stage('Maven Package') {
             steps {
                 sh 'mvn package'
@@ -33,11 +33,9 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                sh 'mvn docker:build'
-                sh '''
-                    echo "After this, will need to push them to registry."
-                    docker images
-                '''
+                sh 'mvn clean package -pl api docker:build'
+                sh 'mvn clean package -pl api-audit docker:build'
+                sh 'mvn clean package -pl UI docker:build'
             }
         }
     }

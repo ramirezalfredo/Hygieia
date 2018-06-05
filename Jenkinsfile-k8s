@@ -25,8 +25,8 @@ spec:
         container('maven') {
           sh 'apt-get update'
           /*
-          sh 'curl -sL https://deb.nodesource.com/setup_8.x | bash -'
-          sh 'apt-get install -y nodejs'
+          sh 'curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -'
+          sh 'sudo yum -y install nodejs'
           sh 'npm install -g bower'
           sh 'npm install -g gulp'
           */
