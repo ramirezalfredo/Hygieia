@@ -26,8 +26,6 @@ The idea behind this, is to use the Kubernetes cluster for the builds. The pipel
 
 Final Jenkinsfile does a local build, Jenkinsfile-k8s is the original version that i have to left behind, but this is the configuration of the Kubernetes plugin for Jenkins:
 
-![Screenshot #1]
-(https://github.com/ramirezalfredo/Hygieia/terraform/screenshots/screen1.png)
+![Screenshot #1](https://github.com/ramirezalfredo/Hygieia/terraform/screenshots/screen1.png)
 
-![Screenshot #2]
-(https://github.com/ramirezalfredo/Hygieia/terraform/screenshots/screen2.png)
+![Screenshot #2](https://github.com/ramirezalfredo/Hygieia/terraform/screenshots/screen2.png)
