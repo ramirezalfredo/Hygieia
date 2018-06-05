@@ -28,4 +28,4 @@ Final Jenkinsfile does a local build, Jenkinsfile-k8s is the original version th
 
 ![Screenshot #1](screenshots/screen1.png)
 
-![Screenshot #2](https://github.com/ramirezalfredo/Hygieia/terraform/screenshots/screen2.png)
+![Screenshot #2](screenshots/screen2.png)
