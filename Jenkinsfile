@@ -33,6 +33,7 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
+                /*
                 sh 'mvn clean package -pl api docker:build'
                 sh 'mvn clean package -pl api-audit docker:build'
                 sh 'mvn clean package -pl UI docker:build'
@@ -40,7 +41,9 @@ pipeline {
                 sh 'mvn clean package -pl bamboo-build-collector docker:build'
                 sh 'mvn clean package -pl jenkins-build-collector docker:build'
                 sh 'mvn clean package -pl aws-cloud-collector docker:build'
-                '  bitbucker 
+                sh 'mvn clean package -pl bitbucket-collector docker:build'
+                */
+                mvn docker:build
             }
         }
     }
