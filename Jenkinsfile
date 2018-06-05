@@ -27,7 +27,7 @@ pipeline {
                 sh 'mvn install'
                 sh '''
                     echo "After this, there will be change to generate Docker containers"
-                    ls -lah
+                    find . -name '*.jar'
                 '''
             }
         }
@@ -36,7 +36,7 @@ pipeline {
                 sh 'mvn docker:build'
                 sh '''
                     echo "After this, will need to push them to registry."
-                    ls -lah
+                    docker images
                 '''
             }
         }
