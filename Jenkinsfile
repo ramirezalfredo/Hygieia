@@ -22,7 +22,7 @@ pipeline {
                 '''
             }
         }
-        stage('Artifacts Build') {
+        stage('Maven Install') {
             steps {
                 sh 'mvn install'
                 sh '''
@@ -33,7 +33,7 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                mvn docker:build
+                sh 'mvn docker:build'
                 /*
                 sh 'mvn clean package -pl api docker:build'
                 sh 'mvn clean package -pl api-audit docker:build'
