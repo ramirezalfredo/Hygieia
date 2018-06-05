@@ -86,36 +86,20 @@ resource "aws_route_table_association" "rtb-net3" {
   route_table_id = "${aws_route_table.rtb.id}"
 }
 
-resource "aws_elb" "jenkins-elb" {
-  name               = "jenkins-ebl"
-  availability_zones = ["us-east-2a", "us-east-2b", "us-east-2c"]
+/*
+resource "aws_lb" "jenkins_lb" {
+  name               = "jenkins-lb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = ["${aws_subnet.public.*.id}"]
 
-  listener {
-    instance_port     = 8000
-    instance_protocol = "http"
-    lb_port           = 80
-    lb_protocol       = "http"
-  }
-
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 3
-    target              = "HTTP:8000/"
-    interval            = 30
-  }
-
-  instances                   = ["${aws_instance.jenkins.id}"]
-  cross_zone_load_balancing   = true
-  idle_timeout                = 400
-  connection_draining         = true
-  connection_draining_timeout = 400
+  enable_deletion_protection = true
 
   tags {
-    name = "jenkins-port80-elb"
+    Environment = "production"
   }
 }
-
+*/
 resource "aws_instance" "jenkins" {
   ami                         = "ami-922914f7"
   instance_type               = "t2.small"
@@ -147,22 +131,24 @@ resource "aws_instance" "jenkins" {
   }
 }
 
+/*
 resource "aws_route53_zone" "primary" {
   name = "cloudmaster.cr"
 }
-
+*/
+/*
 resource "aws_route53_record" "jenkins" {
   zone_id = "${aws_route53_zone.primary.zone_id}"
   name    = "cloudmaster.cr"
   type    = "CNAME"
 
   alias {
-    name                   = "${aws_elb.jenkins-elb.dns_name}"
-    zone_id                = "${aws_elb.jenkins-elb.zone_id}"
+    name                   = "${aws_lb.jenkins-lb.dns_name}"
+    zone_id                = "${aws_lb.jenkins-lb.zone_id}"
     evaluate_target_health = false
   }
 }
-
+*/
 resource "aws_instance" "mongodb" {
   ami                         = "ami-922914f7"
   instance_type               = "t2.micro"

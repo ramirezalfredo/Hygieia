@@ -45,4 +45,5 @@ logs
 application.properties
 
 terraform/.terraform
-terraform/terraform.tfstate*
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
