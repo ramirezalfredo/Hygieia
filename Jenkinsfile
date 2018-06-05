@@ -36,6 +36,11 @@ pipeline {
                 sh 'mvn clean package -pl api docker:build'
                 sh 'mvn clean package -pl api-audit docker:build'
                 sh 'mvn clean package -pl UI docker:build'
+                sh 'mvn clean package -pl artifactory-artifact-collector docker:build'
+                sh 'mvn clean package -pl bamboo-build-collector docker:build'
+                sh 'mvn clean package -pl jenkins-build-collector docker:build'
+                sh 'mvn clean package -pl aws-cloud-collector docker:build'
+                '  bitbucker 
             }
         }
     }
