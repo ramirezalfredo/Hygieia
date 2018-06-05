@@ -6,6 +6,11 @@
     name: java-1.8.0-openjdk
     state: present
 
+- name: Java | Install OpenJDK 8
+  package: 
+    name: java-1.8.0-openjdk-devel
+    state: present
+
 - name: Java | Remove OpenJDK 7
   package: 
     name: java-1.7.0-openjdk

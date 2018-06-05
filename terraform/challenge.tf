@@ -88,7 +88,7 @@ resource "aws_route_table_association" "rtb-net3" {
 
 resource "aws_instance" "jenkins" {
   ami                         = "ami-922914f7"
-  instance_type               = "t2.micro"
+  instance_type               = "t2.small"
   key_name                    = "cloudmaster"
   subnet_id                   = "${aws_subnet.challenge-net1.id}"
   vpc_security_group_ids      = ["${aws_security_group.worker-sg.id}"]
