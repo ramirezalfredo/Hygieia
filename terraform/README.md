@@ -30,7 +30,7 @@ Final Jenkinsfile does a local build, Jenkinsfile-k8s is the original version th
 
 ![Screenshot #2](screenshots/screen2.png)
 
-##TODO:
+## TODO
 
 * Add a volume to the cluster for the workDir at the jnlp container, for caching the $HOME/.m2 directory, and caching for the subsecuent builds while using this method.
 * Deploy container images in Kubenetes cluster, expose services, attach ELB.
