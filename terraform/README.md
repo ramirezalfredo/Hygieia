@@ -74,7 +74,7 @@ java                                      openjdk-8-jdk       d23bdf5b1b1b      
 
 Content of one of the repos:
 
-![Screenshot #3](screenshots/screen3.png)
+![Screenshot #4](screenshots/screen4.png)
 
 ## Workarounds and fixes:
 
