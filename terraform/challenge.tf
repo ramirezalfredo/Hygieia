@@ -5,9 +5,9 @@ terraform {
 */
 
 provider "aws" {
-  access_key = ""
-  secret_key = ""
-  region     = "us-east-2"
+  profile                 = "default"
+  shared_credentials_file = "~/.aws/credentials"
+  region                  = "us-east-2"
 }
 
 resource "aws_vpc" "challenge-vpc" {
