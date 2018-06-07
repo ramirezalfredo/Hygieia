@@ -5,12 +5,12 @@ variable "ssh_key_private" {
 
 variable "k8s_master_ip" {
   type    = "string"
-  default = "192.168.3.200"
+  default = "192.168.1.200"
 }
 
 variable "mongodb_ip" {
   type    = "string"
-  default = "192.168.1.200"
+  default = "192.168.3.200"
 }
 
 variable "images" {

@@ -21,11 +21,17 @@
     regexp: '^  bindIp: 127.0.0.1'
     replace: '#  bindIp: 127.0.0.1'
     backup: yes
-  #notify:
-  #  - restart mongod
 
 - name: MongoDB | Start MongoDB
   service: 
     name: mongod
     state: restarted
     enabled: yes
+
+- name: MongoDB | Copy the user creation script
+  template:
+    src: daemon.json
+    dest: /home/ec2-user/mongosrc.js
+
+- name: MongoDB | Create user with password and role
+  shell: mongo < /home/ec2-user/mongosrc.js
