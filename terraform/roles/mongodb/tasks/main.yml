@@ -30,7 +30,7 @@
 
 - name: MongoDB | Copy the user creation script
   template:
-    src: daemon.json
+    src: mongosrc.js
     dest: /home/ec2-user/mongosrc.js
 
 - name: MongoDB | Create user with password and role
