@@ -187,6 +187,7 @@ resource "aws_instance" "kube-master" {
   vpc_security_group_ids      = ["${aws_security_group.worker-sg.id}"]
   associate_public_ip_address = true
   private_ip                  = "${var.k8s_master_ip}"
+  iam_instance_profile        = "kubernetes-masters-role"
 
   tags {
     Name = "kube-master"
@@ -217,6 +218,7 @@ resource "aws_instance" "kube-worker" {
   subnet_id                   = "${aws_subnet.challenge-net2.id}"
   vpc_security_group_ids      = ["${aws_security_group.worker-sg.id}"]
   associate_public_ip_address = true
+  iam_instance_profile        = "kubernetes-workers-role"
   depends_on                  = ["aws_instance.kube-master"]
 
   tags {
