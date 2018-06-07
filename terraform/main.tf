@@ -86,20 +86,6 @@ resource "aws_route_table_association" "rtb-net3" {
   route_table_id = "${aws_route_table.rtb.id}"
 }
 
-/*
-resource "aws_lb" "jenkins_lb" {
-  name               = "jenkins-lb"
-  internal           = false
-  load_balancer_type = "network"
-  subnets            = ["${aws_subnet.public.*.id}"]
-
-  enable_deletion_protection = true
-
-  tags {
-    Environment = "production"
-  }
-}
-*/
 resource "aws_instance" "jenkins" {
   ami                         = "ami-922914f7"
   instance_type               = "t2.small"
@@ -132,6 +118,20 @@ resource "aws_instance" "jenkins" {
 }
 
 /*
+resource "aws_lb" "jenkins_lb" {
+  name               = "jenkins-lb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = ["${aws_subnet.public.*.id}"]
+
+  enable_deletion_protection = true
+
+  tags {
+    Environment = "production"
+  }
+}
+*/
+/*
 resource "aws_route53_zone" "primary" {
   name = "cloudmaster.cr"
 }
@@ -156,6 +156,7 @@ resource "aws_instance" "mongodb" {
   subnet_id                   = "${aws_subnet.challenge-net3.id}"
   vpc_security_group_ids      = ["${aws_security_group.database-sg.id}"]
   associate_public_ip_address = true
+  private_ip                  = "${var.mongodb_ip}"
 
   tags {
     Name = "mongodb"
