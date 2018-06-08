@@ -34,7 +34,6 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh 'mvn docker:build'
-                //docker.withRegistry('https://537899582775.dkr.ecr.us-east-2.amazonaws.com', '387d5f7f-53d2-4b1a-8f4f-186d6ffb5374') 
                 sh 'terraform/deploy.sh'
             }
         }
