@@ -29,6 +29,7 @@ pipeline {
                     echo "After this, there will be change to generate Docker containers"
                     find . -name '*.jar'
                 '''
+                archiveArtifacts '*.jar'
             }
         }
         stage('Docker Build') {

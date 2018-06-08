@@ -1,5 +1,5 @@
-use
-dashboarddb
+use dashboarddb
+
 db.createUser(
     {
         user: "dashboarduser",
