@@ -5,14 +5,14 @@ pipeline {
         //jdk 'jdk8'
     }
     stages {
-        // stage ('Initialize') {
-        //     steps {
-        //         sh '''
-        //             echo "PATH = ${PATH}"
-        //             echo "M2_HOME = ${M2_HOME}"
-        //         '''
-        //     }
-        // }
+        stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
+            }
+        }
         stage('Maven Package') {
             steps {
                 sh 'mvn package'
@@ -34,17 +34,8 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh 'mvn docker:build'
-                /*
-                sh 'mvn clean package -pl api docker:build'
-                sh 'mvn clean package -pl api-audit docker:build'
-                sh 'mvn clean package -pl UI docker:build'
-                sh 'mvn clean package -pl artifactory-artifact-collector docker:build'
-                sh 'mvn clean package -pl bamboo-build-collector docker:build'
-                sh 'mvn clean package -pl jenkins-build-collector docker:build'
-                sh 'mvn clean package -pl aws-cloud-collector docker:build'
-                sh 'mvn clean package -pl bitbucket-scm-collector docker:build'
-                */
 
+                sh 'terraform/deploy.sh'
             }
         }
     }
