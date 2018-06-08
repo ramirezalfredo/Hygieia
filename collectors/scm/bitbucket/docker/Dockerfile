@@ -14,6 +14,5 @@ VOLUME ["/hygieia/logs"]
 
 ENV PROP_FILE /hygieia/config/application.properties
 
-CMD ./properties-builder.sh && \
-  java -jar bitbucket-scm-collector*.jar --spring.config.location=$PROP_FILE
+CMD java -jar bitbucket-scm-collector*.jar --spring.config.location=$PROP_FILE
 
