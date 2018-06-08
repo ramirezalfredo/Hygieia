@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hygieia-api-deploy
+  labels:
+    app: hygieia-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hygieia-api
+  template:
+    metadata:
+      labels:
+        app: hygieia-api
+    spec:
+      containers:
+      - name: hygieia-api
+        image: 537899582775.dkr.ecr.us-east-2.amazonaws.com/hygieia-api
+        ports: 
+        - containerPort: 8080
+        volumeMounts:
+        - name: api-config
+          mountPath: /hygieia/config
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: api-config
+          configMap:
+            name: api-properties
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8      
