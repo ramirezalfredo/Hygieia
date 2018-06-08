@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: hygieia-ui
-        image: 537899582775.dkr.ecr.us-east-2.amazonaws.com/hygieia-api
+        image: 537899582775.dkr.ecr.us-east-2.amazonaws.com/hygieia-ui
         ports: 
         - containerPort: 3000
       imagePullSecrets:

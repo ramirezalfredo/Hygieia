@@ -327,7 +327,7 @@ resource "aws_security_group" "database-sg" {
     from_port   = 27017
     to_port     = 27017
     protocol    = "tcp"
-    cidr_blocks = ["192.168.0.0/16"]
+    cidr_blocks = ["0.0.0.0/16"]
   }
 
   egress {
