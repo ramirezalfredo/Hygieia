@@ -1,4 +1,4 @@
-#!/binbash
+#!/bin/bash
 
 # creates repos in ECR
 aws ecr create-repository --repository-name hygieia-ui
