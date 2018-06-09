@@ -209,7 +209,7 @@ resource "aws_instance" "kube-master" {
 }
 
 resource "aws_instance" "kube-worker" {
-  count = 2
+  count = 3
   ami   = "ami-03291866"
 
   // used to be t2.micro, but never worked 
