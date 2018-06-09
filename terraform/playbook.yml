@@ -38,3 +38,12 @@
     - worker-k8s
   tags:
     - k8s-worker
+
+- name: k8s-common
+  hosts: vmware
+  remote_user: alfredo
+  gather_facts: true
+  roles:
+    - common-k8s
+  tags:
+    - k8s-common
