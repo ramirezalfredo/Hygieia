@@ -1,9 +1,3 @@
-/*
-terraform {
-  required_version = "> 0.11.7"
-}
-*/
-
 provider "aws" {
   profile                 = "default"
   shared_credentials_file = "~/.aws/credentials"
@@ -86,6 +80,32 @@ resource "aws_route_table_association" "rtb-net3" {
   route_table_id = "${aws_route_table.rtb.id}"
 }
 
+/*
+resource "aws_instance" "mongodb" {
+  ami                         = "ami-922914f7"
+  instance_type               = "t2.micro"
+  key_name                    = "cloudmaster"
+  subnet_id                   = "${aws_subnet.challenge-net3.id}"
+  vpc_security_group_ids      = ["${aws_security_group.database-sg.id}"]
+  associate_public_ip_address = true
+  private_ip                  = "${var.mongodb_ip}"
+  tags {
+    Name = "mongodb"
+  }
+  provisioner "remote-exec" {
+    inline = ["sudo yum -y update"]
+
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = "${file(var.ssh_key_private)}"
+    }
+  }
+  provisioner "local-exec" {
+    command = "ansible-playbook -i '${self.public_ip},' -t mongodb --become --private-key ${var.ssh_key_private} playbook.yml"
+  }
+}
+*/
 resource "aws_instance" "jenkins" {
   ami                         = "ami-922914f7"
   instance_type               = "t2.small"
@@ -149,34 +169,6 @@ resource "aws_route53_record" "jenkins" {
   }
 }
 */
-resource "aws_instance" "mongodb" {
-  ami                         = "ami-922914f7"
-  instance_type               = "t2.micro"
-  key_name                    = "cloudmaster"
-  subnet_id                   = "${aws_subnet.challenge-net3.id}"
-  vpc_security_group_ids      = ["${aws_security_group.database-sg.id}"]
-  associate_public_ip_address = true
-  private_ip                  = "${var.mongodb_ip}"
-
-  tags {
-    Name = "mongodb"
-  }
-
-  provisioner "remote-exec" {
-    inline = ["sudo yum -y update"]
-
-    connection {
-      type        = "ssh"
-      user        = "ec2-user"
-      private_key = "${file(var.ssh_key_private)}"
-    }
-  }
-
-  provisioner "local-exec" {
-    command = "ansible-playbook -i '${self.public_ip},' -t mongodb --become --private-key ${var.ssh_key_private} playbook.yml"
-  }
-}
-
 resource "aws_instance" "kube-master" {
   ami = "ami-03291866"
 
@@ -209,10 +201,8 @@ resource "aws_instance" "kube-master" {
 }
 
 resource "aws_instance" "kube-worker" {
-  count = 3
-  ami   = "ami-03291866"
-
-  // used to be t2.micro, but never worked 
+  count                       = 3
+  ami                         = "ami-03291866"
   instance_type               = "t2.small"
   key_name                    = "cloudmaster"
   subnet_id                   = "${aws_subnet.challenge-net2.id}"
@@ -311,6 +301,7 @@ resource "aws_security_group" "worker-sg" {
   }
 }
 
+/*
 resource "aws_security_group" "database-sg" {
   name        = "database-sg"
   description = "Allow database inbound traffic"
@@ -346,3 +337,5 @@ resource "aws_security_group" "database-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+*/
+

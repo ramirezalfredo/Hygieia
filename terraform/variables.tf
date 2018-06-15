@@ -1,6 +1,6 @@
 variable "ssh_key_private" {
   type    = "string"
-  default = "/Users/alfredo/cloudmaster.pem"
+  default = "/Users/alfredo/.ssh/cloudmaster.pem"
 }
 
 variable "k8s_master_ip" {
