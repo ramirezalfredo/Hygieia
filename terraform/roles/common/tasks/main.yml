@@ -1,5 +1,8 @@
 ---
-# OpenJDK 8 for Everyone
+- name: Git | Install Git
+  package: 
+    name: git
+    state: present
 
 - name: Java | Install OpenJDK 8
   package: 
@@ -15,8 +18,3 @@
   package: 
     name: java-1.7.0-openjdk
     state: absent
-
-- name: Git | Install Git
-  package: 
-    name: git
-    state: present
