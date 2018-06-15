@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: hygieia-api-deploy
+  name: api
   labels:
     app: hygieia-api
 spec:
@@ -28,7 +28,7 @@ spec:
         - name: api-config
           configMap:
             name: api-properties
-      dnsPolicy: "None"
-      dnsConfig:
-        nameservers:
-          - 8.8.8.8      
+#      dnsPolicy: "None"
+#      dnsConfig:
+#        nameservers:
+#          - 8.8.8.8      
