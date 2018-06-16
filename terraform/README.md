@@ -14,7 +14,11 @@ In this folder you will find the terraform IaC files (main.tf and variables.tf) 
 
 Ansible was used as the Configuration Management for this project, and the files can be located at the root of this folder:
 
-* playbook.yml
+* site.yml (master playbook)
+* jenkins.yml
+* k8s-master.yml
+* k8s-worker.yml
+* mongodb.yml (not in use anymore, mongodb will be a Pod)
 * group_vars/*
 * roles/*
 * templates/*
@@ -26,6 +30,7 @@ For the playbook, created a single `playbook.yml` file with tags that are called
 Changed plugin configuration to 1.0 in the UI tests.
 
 pom.xml
+
 ```xml
     <plugin>
     <groupId>com.github.eirslett</groupId>
@@ -42,6 +47,7 @@ pom.xml
 Skipped Docker container for Rally (one of the collectors):
 
 pom.xml
+
 ```xml
     <configuration>
         <!--<skipDockerBuild>false</skipDockerBuild>-->
