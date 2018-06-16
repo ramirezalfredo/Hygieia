@@ -75,11 +75,12 @@ resource "aws_route_table_association" "rtb-net2" {
 }
 
 //comment if network will be private
+/*
 resource "aws_route_table_association" "rtb-net3" {
   subnet_id      = "${aws_subnet.challenge-net3.id}"
   route_table_id = "${aws_route_table.rtb.id}"
 }
-
+*/
 /*
 resource "aws_instance" "mongodb" {
   ami                         = "ami-922914f7"
@@ -102,7 +103,7 @@ resource "aws_instance" "mongodb" {
     }
   }
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${self.public_ip},' -t mongodb --become --private-key ${var.ssh_key_private} playbook.yml"
+    command = "ansible-playbook -i '${self.public_ip},' --become --private-key ${var.ssh_key_private} mongodb.yml"
   }
 }
 */
@@ -133,7 +134,7 @@ resource "aws_instance" "jenkins" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${self.public_ip},' -t jenkins --become --private-key ${var.ssh_key_private} playbook.yml"
+    command = "ansible-playbook -i '${self.public_ip},' --become --private-key ${var.ssh_key_private} jenkins.yml"
   }
 }
 
@@ -170,9 +171,7 @@ resource "aws_route53_record" "jenkins" {
 }
 */
 resource "aws_instance" "kube-master" {
-  ami = "ami-03291866"
-
-  // used to be t2.micro, but never worked 
+  ami                         = "ami-03291866"
   instance_type               = "t2.small"
   key_name                    = "cloudmaster"
   subnet_id                   = "${aws_subnet.challenge-net1.id}"
@@ -196,7 +195,7 @@ resource "aws_instance" "kube-master" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${self.public_ip},' -t k8s-master -e k8s_master_ip=${var.k8s_master_ip} --become --private-key ${var.ssh_key_private} playbook.yml"
+    command = "ansible-playbook -i '${self.public_ip},' -e k8s_master_ip=${var.k8s_master_ip} --become --private-key ${var.ssh_key_private} k8s-master.yml"
   }
 }
 
@@ -226,7 +225,7 @@ resource "aws_instance" "kube-worker" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${self.public_ip},' -t k8s-worker -e k8s_master_ip=${var.k8s_master_ip} --become --private-key ${var.ssh_key_private} playbook.yml"
+    command = "ansible-playbook -i '${self.public_ip},' -e k8s_master_ip=${var.k8s_master_ip} --become --private-key ${var.ssh_key_private} k8s-worker.yml"
   }
 }
 
