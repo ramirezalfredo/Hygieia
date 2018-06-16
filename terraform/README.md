@@ -62,9 +62,11 @@ The Kubernetes Cluster generation is fully automated, with the exception of the 
 
 The Jenkins setup process automated trough Ansible, but starts at the initial wizard screen, and the Kubernetes Jenkins plugin should be installed and configured manually.
 
-The idea behind this, is to use the Kubernetes cluster for the builds. The pipeline  launches a Pod (buildpod-*) with the containers nedded to build the parts of the project.  A Jenkinsfile (declarative pipeline) is provided at the root of this repository `https://github.com/ramirezalfredo/Hygieia`.
+## CI/CD: Jenkins pipeline
 
-Final Jenkinsfile does a local build, but Jenkinsfile-k8s is the original version that i have to left behind. This is the configuration of the Kubernetes plugin for Jenkins:
+The idea behind this, was to use the Kubernetes cluster for the builds. The pipeline  launches a Pod (buildpod-*) with the containers nedded to build the parts of the project.  A Jenkinsfile (declarative pipeline) is provided at the root of this repository `https://github.com/ramirezalfredo/Hygieia`.
+
+Final Jenkinsfile does a local build in the Jenkins master, but Jenkinsfile-k8s which is the original version, i had to leave it behind. This is the configuration of the Kubernetes plugin for Jenkins (worked with the current cluster config):
 
 ![Screenshot #1](screenshots/screen1.png)
 
