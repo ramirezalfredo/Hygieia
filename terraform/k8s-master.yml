@@ -1,0 +1,10 @@
+---
+- name: k8s-master
+  hosts: all
+  remote_user: ec2-user
+  gather_facts: False
+  roles:
+    - common-k8s
+    - master-k8s
+  tags:
+    - k8s-master

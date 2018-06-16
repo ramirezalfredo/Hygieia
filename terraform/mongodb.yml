@@ -1,0 +1,10 @@
+---
+- name: mongodb
+  hosts: all
+  remote_user: ec2-user
+  gather_facts: False
+  roles:
+    - common
+    - mongodb
+  tags:
+    - mongodb
